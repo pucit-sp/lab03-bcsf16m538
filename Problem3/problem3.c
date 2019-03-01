@@ -92,12 +92,20 @@ void mygrep(FILE *fp,char *find)
 
 	/*	Add code to get strings from file
 */ 
-	while(/*	read a string from file*/)
+	while(fgets(c1, 500, fp) != NULL)
 	{
-		/*	Add your code here to search a string find on string c1 readed from file	*/
+		for (int i = 0; i < strlen(c1); i++)
+		{
+			if (find[0] == c1[i])
+			{
+				if (memcmp(find, c1 + i, strlen(find)) == 0)
+				{
+					printf("%s\n", c1);
+				}
+			}
+		}
 	}
 }
-
 
 
 
@@ -105,16 +113,27 @@ void mygrep(FILE *fp,char *find)
 void myreplace(FILE *fp,char *find, char * replace)
 {
 	char c1[500];
-	int flen = strlen(find);
+	int f = strlen(find);
 
 
-	while(/*	read a string from file*/)
+	while(fgets(c1, 500, fp) != NULL)
 	{
-		/*	Add your code here to search a string find on string c1 readed from file	
-*/
-		if(/*	found the string 	*/)
+		for (int i = 0; i < strlen(c1); i++)
 		{
-			/*	replace the finded string with replace string	*/
+			if (find[0] == c1[i])
+			{
+				if (memcmp(find, c1 + i, strlen(find)) == 0)
+				{
+					char* macro = (char*)malloc(strlen(c1) - f + strlen(replace));
+					
+					printf("%s\n", c1);
+					memcpy(macro, c1, i);
+					memcpy(macro + i, replace, strlen(replace));
+					memcpy(macro + i + strlen(replace), c1 + i + f, strlen(c1) - (i + f));
+					macro[strlen(c1) - f + strlen(replace)] = NULL;
+					printf("%s\n", macro);
+				}
+			}
 		}
 	}
 
